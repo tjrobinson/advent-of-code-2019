@@ -7,7 +7,9 @@ namespace AdventOfCode2019
     public class Day1
     {
         public decimal GetFuelNeeded(decimal mass) {
-            return Math.Floor((mass / 3)) - 2;
+
+            var x = Math.Floor((mass / 3)) - 2;
+            return x;
         }
 
         public decimal GetFuelNeeded(IEnumerable<decimal> masses){
