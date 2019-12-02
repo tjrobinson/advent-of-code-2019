@@ -6,14 +6,18 @@ namespace AdventOfCode2019
 {
     public class Day2
     {
-        public IEnumerable<int> Program {
-            get{
+        public IEnumerable<int> Program
+        {
+            get
+            {
                 return program.ToList();
             }
         }
 
-         public int FirstValue {
-            get{
+        public int FirstValue
+        {
+            get
+            {
                 return program[0];
             }
         }
@@ -25,23 +29,26 @@ namespace AdventOfCode2019
 
         private bool programCompleted = false;
 
-        public Day2(string program){
+        public Day2(string program)
+        {
 
             this.program = program.Split(',').Select(x => Int32.Parse(x)).ToList();
         }
 
-        public void Execute() {
+        public void Execute()
+        {
 
             int currentOpCode = program[position];
 
-            switch (currentOpCode) {
+            switch (currentOpCode)
+            {
                 case 1:
                     // Addition
                     var x = program[position + 1];
                     var y = program[position + 2];
                     var z = program[position + 3];
                     program[z] = program[x] + program[y];
-                    position += 4;     
+                    position += 4;
                     break;
                 case 2:
                     // Multiply
@@ -56,10 +63,11 @@ namespace AdventOfCode2019
                     break;
             }
 
-            if (!programCompleted){
+            if (!programCompleted)
+            {
 
                 Execute();
             }
-        } 
+        }
     }
 }
