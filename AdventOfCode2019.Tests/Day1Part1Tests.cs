@@ -39,8 +39,7 @@ namespace AdventOfCode.Tests
             var day1 = new Day1Part1();
             var fuelNeeded = day1.GetFuelNeeded(masses);
 
-            this.testOutputHelper.WriteLine(fuelNeeded.ToString());
-            Console.WriteLine(fuelNeeded.ToString());
+            this.testOutputHelper.WriteLine("X2" + fuelNeeded.ToString());
         }
     }
 }

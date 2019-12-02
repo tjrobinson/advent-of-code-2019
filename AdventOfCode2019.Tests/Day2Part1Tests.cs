@@ -46,7 +46,7 @@ namespace AdventOfCode.Tests
             day2.Execute();
 
             day2.Memory.Should().NotBeNullOrEmpty();
-            day2.Output.Should().Be(0);
+            day2.Output.Should().Be(4945026);
         }
     }
 }
