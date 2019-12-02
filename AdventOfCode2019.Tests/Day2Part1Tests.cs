@@ -8,11 +8,11 @@ using Xunit.Abstractions;
 
 namespace AdventOfCode.Tests
 {
-    public class Day2Tests
+    public class Day2Part1Tests
     {
         private readonly ITestOutputHelper testOutputHelper;
 
-        public Day2Tests(ITestOutputHelper testOutputHelper)
+        public Day2Part1Tests(ITestOutputHelper testOutputHelper)
         {
             this.testOutputHelper = testOutputHelper;
         }
@@ -26,14 +26,14 @@ namespace AdventOfCode.Tests
         {
             var day2 = new Day2(input);
             
-            day2.Program.Should().NotBeNullOrEmpty();
-            string.Join(",", day2.Program).Should().Be(input);
+            day2.Memory.Should().NotBeNullOrEmpty();
+            string.Join(",", day2.Memory).Should().Be(input);
 
             day2.Execute();
 
-            string.Join(",", day2.Program).Should().Be(expectedProgram);
+            string.Join(",", day2.Memory).Should().Be(expectedProgram);
 
-            day2.FirstValue.Should().Be(expectedOutput);
+            day2.Output.Should().Be(expectedOutput);
         }
 
         [Fact]
@@ -45,8 +45,8 @@ namespace AdventOfCode.Tests
             
             day2.Execute();
 
-            day2.Program.Should().NotBeNullOrEmpty();
-            day2.FirstValue.Should().Be(0);
+            day2.Memory.Should().NotBeNullOrEmpty();
+            day2.Output.Should().Be(0);
         }
     }
 }
