@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace AdventOfCode2019
 {
-    public class Day1
+    public class Day1Part1
     {
         public decimal GetFuelNeeded(decimal mass) {
 

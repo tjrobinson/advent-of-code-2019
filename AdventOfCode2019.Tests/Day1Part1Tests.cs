@@ -32,7 +32,7 @@ namespace AdventOfCode.Tests
         [Fact]
         public void MyPuzzleInput()
         {
-            var file = File.ReadAllLines("./Data/day1part1.csv");
+            var file = File.ReadAllLines("./Data/day1.csv");
 
             var masses = file.AsEnumerable().Select(line => decimal.Parse(line));
 
