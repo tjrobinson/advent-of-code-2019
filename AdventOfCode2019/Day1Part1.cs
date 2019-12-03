@@ -14,7 +14,7 @@ namespace AdventOfCode2019
 
         public decimal GetFuelNeeded(IEnumerable<decimal> masses){
             return masses
-            .Select(mass => this.GetFuelNeeded(mass))
+            .Select(this.GetFuelNeeded)
             .Sum();
         }
     }
