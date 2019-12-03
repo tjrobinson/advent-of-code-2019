@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
@@ -23,6 +25,19 @@ namespace AdventOfCode2019.Tests
             int closestIntersectionPointDistance = day3.GetClosestIntersectionPointDistance();
 
             closestIntersectionPointDistance.Should().Be(expectedClosestIntersectionPointDistance);
+        }
+
+
+        [Theory]
+        [InlineData("R5")]
+        [InlineData("L5")]
+        public void GetWirePositionsTests(string wirePath)
+        {
+            var day3 = new Day3(wirePath, wirePath);
+
+            var wirePositions = day3.GetWirePositions(wirePath);
+
+            wirePositions.Should().BeEquivalentTo(new List<ValueTuple<int, int>> { (0,0), (5,0)});
         }
     }
 }
