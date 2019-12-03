@@ -1,12 +1,11 @@
 using System;
-using Xunit;
-using AdventOfCode2019;
-using FluentAssertions;
 using System.IO;
 using System.Linq;
+using FluentAssertions;
+using Xunit;
 using Xunit.Abstractions;
 
-namespace AdventOfCode.Tests
+namespace AdventOfCode2019.Tests
 {
     public class Day1Part1Tests
     {

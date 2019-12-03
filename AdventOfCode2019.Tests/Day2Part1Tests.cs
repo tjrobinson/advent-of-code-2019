@@ -1,12 +1,9 @@
-using System;
-using Xunit;
-using AdventOfCode2019;
-using FluentAssertions;
 using System.IO;
-using System.Linq;
+using FluentAssertions;
+using Xunit;
 using Xunit.Abstractions;
 
-namespace AdventOfCode.Tests
+namespace AdventOfCode2019.Tests
 {
     public class Day2Part1Tests
     {
@@ -25,7 +22,7 @@ namespace AdventOfCode.Tests
         public void Examples(string input, int expectedOutput, string expectedProgram)
         {
             var day2 = new Day2(input);
-            
+
             day2.Memory.Should().NotBeNullOrEmpty();
             string.Join(",", day2.Memory).Should().Be(input);
 
@@ -42,7 +39,7 @@ namespace AdventOfCode.Tests
             var puzzleInput = File.ReadAllText("./Data/day2.csv");
 
             var day2 = new Day2(puzzleInput);
-            
+
             day2.Execute();
 
             day2.Memory.Should().NotBeNullOrEmpty();

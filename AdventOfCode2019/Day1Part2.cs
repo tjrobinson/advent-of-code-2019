@@ -14,10 +14,8 @@ namespace AdventOfCode2019
             {
                 return x + this.GetFuelNeeded(x);
             }
-            else
-            {
-                return 0;
-            }
+
+            return 0;
         }
 
         public decimal GetFuelNeeded(IEnumerable<decimal> masses)

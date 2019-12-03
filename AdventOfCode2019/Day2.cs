@@ -6,22 +6,9 @@ namespace AdventOfCode2019
 {
     public class Day2
     {
-        public IEnumerable<int> Memory
-        {
-            get
-            {
-                return memory.ToList();
-            }
-        }
+        public IEnumerable<int> Memory => this.memory.ToList();
 
-        public int Output
-        {
-            get
-            {
-                return memory[0];
-            }
-        }
-
+        public int Output => this.memory[0];
 
         private List<int> memory;
 
@@ -31,38 +18,37 @@ namespace AdventOfCode2019
 
         public Day2(string memory)
         {
-
             this.memory = memory.Split(',').Select(x => Int32.Parse(x)).ToList();
         }
 
         public void Execute()
         {
-            int instruction = memory[instructionPointer];
+            int instruction = this.memory[this.instructionPointer];
 
             switch (instruction)
             {
                 case 1:
                     // Addition
-                    var x = memory[instructionPointer + 1];
-                    var y = memory[instructionPointer + 2];
-                    var z = memory[instructionPointer + 3];
-                    memory[z] = memory[x] + memory[y];
-                    instructionPointer += 4;
+                    var x = this.memory[this.instructionPointer + 1];
+                    var y = this.memory[this.instructionPointer + 2];
+                    var z = this.memory[this.instructionPointer + 3];
+                    this.memory[z] = this.memory[x] + this.memory[y];
+                    this.instructionPointer += 4;
                     break;
                 case 2:
                     // Multiply
-                    var a = memory[instructionPointer + 1];
-                    var b = memory[instructionPointer + 2];
-                    var c = memory[instructionPointer + 3];
-                    memory[c] = memory[a] * memory[b];
-                    instructionPointer += 4;
+                    var a = this.memory[this.instructionPointer + 1];
+                    var b = this.memory[this.instructionPointer + 2];
+                    var c = this.memory[this.instructionPointer + 3];
+                    this.memory[c] = this.memory[a] * this.memory[b];
+                    this.instructionPointer += 4;
                     break;
                 case 99:
-                    halted = true;
+                    this.halted = true;
                     break;
             }
 
-            if (!halted)
+            if (!this.halted)
             {
                 this.Execute();
             }
