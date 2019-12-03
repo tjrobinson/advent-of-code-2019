@@ -4,15 +4,15 @@ using System.Linq;
 
 namespace AdventOfCode2019
 {
-    public class Day3
+    public class Day3Part2
     {
         public List<(int x, int y)> GetWirePositions(string wirePath)
         {
             var wirePathCommands = wirePath.Split(',');
 
-            var positions = new List<(int x, int y)>();
+            var positions = new List<(int x, int y, int step)>();
 
-            (int x, int y) currentPosition = (0, 0);
+            (int x, int y, int stepp) currentPosition = (0, 0, 0);
 
             positions.Add(currentPosition);
 
@@ -24,7 +24,7 @@ namespace AdventOfCode2019
             return positions;
         }
 
-        private static void Move(List<(int x, int y)> positions, ref (int x, int y) currentPosition, string command)
+        private static void Move(List<(int x, int y, int step)> positions, ref (int x, int y, int step) currentPosition, string command)
         {
             var direction = command[0];
             var amount = Int32.Parse(command.Substring(1));
@@ -36,6 +36,7 @@ namespace AdventOfCode2019
                     for (int i = 0; i < amount; i++)
                     {
                         currentPosition.x += 1;
+                        currentPosition.step++;
                         positions.Add(currentPosition);
                     }
                     break;
@@ -43,6 +44,7 @@ namespace AdventOfCode2019
                     for (int i = 0; i < amount; i++)
                     {
                         currentPosition.x -= 1;
+                        currentPosition.step++;
                         positions.Add(currentPosition);
                     }
                     break;
@@ -50,6 +52,7 @@ namespace AdventOfCode2019
                     for (int i = 0; i < amount; i++)
                     {
                         currentPosition.y += 1;
+                        currentPosition.step++;
                         positions.Add(currentPosition);
                     }
                     break;
@@ -57,6 +60,7 @@ namespace AdventOfCode2019
                     for (int i = 0; i < amount; i++)
                     {
                         currentPosition.y -= 1;
+                        currentPosition.step++;
                         positions.Add(currentPosition);
                     }
                     break;
