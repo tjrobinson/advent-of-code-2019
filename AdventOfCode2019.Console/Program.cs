@@ -6,7 +6,8 @@ namespace AdventOfCode2019.Console
     {
         static void Main(string[] args)
         {
-            Day3();
+            //Day3();
+            Day4();
         }
 
         static void Day3()
@@ -23,6 +24,11 @@ namespace AdventOfCode2019.Console
             var closestIntersectionPointDistance = day3.GetQuickestIntersectionPoint(intersections);
 
             System.Console.WriteLine($"Quickest intersection point distance: {closestIntersectionPointDistance}");
+        }
+
+        static void Day4()
+        {
+            var puzzleInput = "278384-824795";
         }
     }
 }
