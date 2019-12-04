@@ -8,7 +8,8 @@ namespace AdventOfCode2019.Console
         static void Main(string[] args)
         {
             //Day3();
-            Day4();
+            //Day4();
+            Day4Part2();
         }
 
         static void Day3()
@@ -32,6 +33,17 @@ namespace AdventOfCode2019.Console
             var puzzleInput = "278384-824795";
 
             var day4 = new Day4();
+
+            var possiblePasswords = day4.GetPossiblePasswords(puzzleInput);
+
+            System.Console.WriteLine(possiblePasswords.Count());
+        }
+
+        static void Day4Part2()
+        {
+            var puzzleInput = "278384-824795";
+
+            var day4 = new Day4Part2();
 
             var possiblePasswords = day4.GetPossiblePasswords(puzzleInput);
 
