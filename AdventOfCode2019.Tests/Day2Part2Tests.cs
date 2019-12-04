@@ -1,12 +1,10 @@
 using System;
-using Xunit;
-using AdventOfCode2019;
-using FluentAssertions;
 using System.IO;
-using System.Linq;
+using FluentAssertions;
+using Xunit;
 using Xunit.Abstractions;
 
-namespace AdventOfCode.Tests
+namespace AdventOfCode2019.Tests
 {
     public class Day2Part2Tests
     {
@@ -33,7 +31,7 @@ namespace AdventOfCode.Tests
                     day2.Execute();
 
                     //this.testOutputHelper.WriteLine(day2.Output.ToString());
-                    
+
                     if (day2.Output == 19690720) {
                         foundIt = true;
                         throw new Exception($"Noun: {noun} Verb: {verb}");

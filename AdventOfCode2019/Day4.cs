@@ -42,14 +42,44 @@ namespace AdventOfCode2019
 
         public bool TwoAdjacentDigitsAreSame(string password)
         {
-            // TODO: Implement
-            return true;
+            var passwordAsNumbers = AsNumbers(password);
+
+            int currentNumber = 0;
+            bool twoAdjacentDigitsAreSame = false;
+
+            foreach (var number in passwordAsNumbers)
+            {
+                if (number == currentNumber)
+                {
+                    twoAdjacentDigitsAreSame = true;
+                    break;
+                }
+
+                currentNumber = number;
+            }
+
+            return twoAdjacentDigitsAreSame;
         }
 
         public bool DigitsNeverDecrease(string password)
         {
-            // TODO: Implement
-            return true;
+            var passwordAsNumbers = AsNumbers(password);
+
+            int currentNumber = 0;
+            bool digitsNeverDecrease = true;
+
+            foreach (var number in passwordAsNumbers)
+            {
+                if (number < currentNumber)
+                {
+                    digitsNeverDecrease = false;
+                    break;
+                }
+
+                currentNumber = number;
+            }
+
+            return digitsNeverDecrease;
         }
 
         public IEnumerable<string> GetPossiblePasswords(string puzzleInput)
