@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace AdventOfCode2019
 {
-    public class PositionEqualityComparer2 : IEqualityComparer<(int x, int y, int step)>
+    public class PositionWithStepEqualityComparer : IEqualityComparer<(int x, int y, int step)>
     {
         public bool Equals((int x, int y, int step) position1, (int x, int y, int step) position2)
         {

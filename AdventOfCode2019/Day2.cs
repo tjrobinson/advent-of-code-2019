@@ -56,8 +56,8 @@ namespace AdventOfCode2019
 
         public void Initialise(int noun, int verb)
         {
-            memory[1] = noun;
-            memory[2] = verb;
+            this.memory[1] = noun;
+            this.memory[2] = verb;
         }
     }
 }

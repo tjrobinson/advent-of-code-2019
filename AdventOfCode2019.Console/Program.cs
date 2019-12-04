@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 
 namespace AdventOfCode2019.Console
 {
@@ -29,6 +30,12 @@ namespace AdventOfCode2019.Console
         static void Day4()
         {
             var puzzleInput = "278384-824795";
+
+            var day4 = new Day4();
+
+            var possiblePasswords = day4.GetPossiblePasswords(puzzleInput);
+
+            System.Console.WriteLine(possiblePasswords.Count());
         }
     }
 }

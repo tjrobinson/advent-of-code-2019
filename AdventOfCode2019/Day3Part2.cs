@@ -76,13 +76,13 @@ namespace AdventOfCode2019
 
         public IEnumerable<(int x, int y, int step)> FindIntersections1(List<(int x, int y, int step)> wire1Positions1, List<(int x, int y, int step)> wire2Positions)
         {
-            var intersections = wire1Positions1.Intersect(wire2Positions, new PositionEqualityComparer2());
+            var intersections = wire1Positions1.Intersect(wire2Positions, new PositionWithStepEqualityComparer());
             return intersections;
         }
 
         public IEnumerable<(int x, int y, int step1, int step2)> FindIntersections(List<(int x, int y, int step)> wire1Positions, List<(int x, int y, int step)> wire2Positions)
         {
-            var intersections1 = FindIntersections1(wire1Positions, wire2Positions);
+            var intersections1 = this.FindIntersections1(wire1Positions, wire2Positions);
 
             var intersections = new List<(int x, int y, int step1, int step2)>();
 
