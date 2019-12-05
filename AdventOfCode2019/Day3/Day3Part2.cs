@@ -1,12 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode2019
+namespace AdventOfCode2019.Day3
 {
-    public class Day3Part2
+    public class Day3Part2 : Day3Part1
     {
-        public List<(int x, int y, int step)> GetWirePositions(string wirePath)
+        public new List<(int x, int y, int step)> GetWirePositions(string wirePath)
         {
             var wirePathCommands = wirePath.Split(',');
 
@@ -24,10 +23,10 @@ namespace AdventOfCode2019
             return positions;
         }
 
-        private static void Move(List<(int x, int y, int step)> positions, ref (int x, int y, int step) currentPosition, string command)
+        private static void Move(ICollection<(int x, int y, int step)> positions, ref (int x, int y, int step) currentPosition, string command)
         {
             var direction = command[0];
-            var amount = Int32.Parse(command.Substring(1));
+            var amount = int.Parse(command.Substring(1));
 
             switch (direction)
             {
@@ -39,6 +38,7 @@ namespace AdventOfCode2019
                         currentPosition.step++;
                         positions.Add(currentPosition);
                     }
+
                     break;
                 case 'L':
                     for (int i = 0; i < amount; i++)
@@ -47,6 +47,7 @@ namespace AdventOfCode2019
                         currentPosition.step++;
                         positions.Add(currentPosition);
                     }
+
                     break;
                 case 'U':
                     for (int i = 0; i < amount; i++)
@@ -55,6 +56,7 @@ namespace AdventOfCode2019
                         currentPosition.step++;
                         positions.Add(currentPosition);
                     }
+
                     break;
                 case 'D':
                     for (int i = 0; i < amount; i++)
@@ -63,6 +65,7 @@ namespace AdventOfCode2019
                         currentPosition.step++;
                         positions.Add(currentPosition);
                     }
+
                     break;
             }
         }
@@ -74,30 +77,24 @@ namespace AdventOfCode2019
             return quickestIntersectionPoint;
         }
 
-        public IEnumerable<(int x, int y, int step)> FindIntersections1(List<(int x, int y, int step)> wire1Positions1, List<(int x, int y, int step)> wire2Positions)
+        public IEnumerable<(int x, int y, int step1, int step2)> FindIntersectionsAndSteps(List<(int x, int y, int step)> wire1Positions, List<(int x, int y, int step)> wire2Positions)
         {
-            var intersections = wire1Positions1.Intersect(wire2Positions, new PositionWithStepEqualityComparer());
-            return intersections;
-        }
+            // This simple first pass narrows down the number of intersections we later retrieve the individual step counts from
+            var intersections = wire1Positions.Intersect(wire2Positions, new PositionWithStepEqualityComparer());
 
-        public IEnumerable<(int x, int y, int step1, int step2)> FindIntersections(List<(int x, int y, int step)> wire1Positions, List<(int x, int y, int step)> wire2Positions)
-        {
-            var intersections1 = this.FindIntersections1(wire1Positions, wire2Positions);
+            var intersectionsAndSteps = new List<(int x, int y, int step1, int step2)>();
 
-            var intersections = new List<(int x, int y, int step1, int step2)>();
-
-            foreach (var position in intersections1)
+            foreach (var intersection in intersections)
             {
-                var match = wire2Positions.SingleOrDefault(p => p.x == position.x && p.y == position.y);
+                var wire2Position = wire2Positions.SingleOrDefault(p => p.x == intersection.x && p.y == intersection.y);
 
-                if (match != default)
+                if (wire2Position != default)
                 {
-                    intersections.Add((position.x, position.y, position.step, match.step));
+                    intersectionsAndSteps.Add((intersection.x, intersection.y, intersection.step, wire2Position.step));
                 }
             }
 
-
-            return intersections;
+            return intersectionsAndSteps;
         }
     }
 }

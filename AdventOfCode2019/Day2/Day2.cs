@@ -1,8 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode2019
+namespace AdventOfCode2019.Day2
 {
     public class Day2
     {
@@ -10,15 +9,24 @@ namespace AdventOfCode2019
 
         public int Output => this.memory[0];
 
-        private List<int> memory;
+        private readonly List<int> memory;
 
-        private int instructionPointer = 0;
+        private int instructionPointer;
 
-        private bool halted = false;
+        private bool halted;
 
         public Day2(string memory)
         {
-            this.memory = memory.Split(',').Select(x => Int32.Parse(x)).ToList();
+            this.memory = memory
+                .Split(',')
+                .Select(int.Parse)
+                .ToList();
+        }
+
+        public void Initialise(int noun, int verb)
+        {
+            this.memory[1] = noun;
+            this.memory[2] = verb;
         }
 
         public void Execute()
@@ -52,12 +60,6 @@ namespace AdventOfCode2019
             {
                 this.Execute();
             }
-        }
-
-        public void Initialise(int noun, int verb)
-        {
-            this.memory[1] = noun;
-            this.memory[2] = verb;
         }
     }
 }

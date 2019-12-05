@@ -1,19 +1,16 @@
+using AdventOfCode2019.Day4;
 using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
-namespace AdventOfCode2019.Tests
+namespace AdventOfCode2019.Tests.Day4
 {
     public class Day4Part1Tests
     {
-        private readonly ITestOutputHelper testOutputHelper;
+        private readonly Day4Part1 day4Part1;
 
-        private readonly Day4 day4;
-
-        public Day4Part1Tests(ITestOutputHelper testOutputHelper)
+        public Day4Part1Tests()
         {
-            this.testOutputHelper = testOutputHelper;
-            this.day4 = new Day4();
+            this.day4Part1 = new Day4Part1();
         }
 
         [Theory]
@@ -22,7 +19,7 @@ namespace AdventOfCode2019.Tests
         [InlineData("123789", true)]
         public void DigitsNeverDecreaseTests(string password, bool expected)
         {
-            var meetsCriteria = this.day4.DigitsNeverDecrease(password);
+            var meetsCriteria = this.day4Part1.DigitsNeverDecrease(password);
 
             meetsCriteria.Should().Be(expected);
         }
@@ -33,7 +30,7 @@ namespace AdventOfCode2019.Tests
         [InlineData("123789", false)]
         public void TwoAdjacentDigitsAreSameTests(string password, bool expected)
         {
-            var meetsCriteria = this.day4.TwoAdjacentDigitsAreSame(password);
+            var meetsCriteria = this.day4Part1.TwoAdjacentDigitsAreSame(password);
 
             meetsCriteria.Should().Be(expected);
         }
@@ -44,7 +41,7 @@ namespace AdventOfCode2019.Tests
         [InlineData("123789", false)]
         public void PasswordMeetsCriteriaTests(string password, bool expected)
         {
-            var meetsCriteria = this.day4.PasswordMeetsCriteria(password);
+            var meetsCriteria = this.day4Part1.PasswordMeetsCriteria(password);
 
             meetsCriteria.Should().Be(expected);
         }

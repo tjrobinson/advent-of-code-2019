@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode2019
+namespace AdventOfCode2019.Day3
 {
-    public class Day3
+    public class Day3Part1
     {
         public List<(int x, int y)> GetWirePositions(string wirePath)
         {
@@ -27,7 +27,7 @@ namespace AdventOfCode2019
         private static void Move(List<(int x, int y)> positions, ref (int x, int y) currentPosition, string command)
         {
             var direction = command[0];
-            var amount = Int32.Parse(command.Substring(1));
+            var amount = int.Parse(command.Substring(1));
 
             switch (direction)
             {
@@ -38,6 +38,7 @@ namespace AdventOfCode2019
                         currentPosition.x += 1;
                         positions.Add(currentPosition);
                     }
+
                     break;
                 case 'L':
                     for (int i = 0; i < amount; i++)
@@ -45,6 +46,7 @@ namespace AdventOfCode2019
                         currentPosition.x -= 1;
                         positions.Add(currentPosition);
                     }
+
                     break;
                 case 'U':
                     for (int i = 0; i < amount; i++)
@@ -52,6 +54,7 @@ namespace AdventOfCode2019
                         currentPosition.y += 1;
                         positions.Add(currentPosition);
                     }
+
                     break;
                 case 'D':
                     for (int i = 0; i < amount; i++)
@@ -59,6 +62,7 @@ namespace AdventOfCode2019
                         currentPosition.y -= 1;
                         positions.Add(currentPosition);
                     }
+
                     break;
             }
         }

@@ -1,10 +1,9 @@
-using System;
-using System.Collections.Generic;
+using AdventOfCode2019.Day3;
 using FluentAssertions;
 using Xunit;
 using Xunit.Abstractions;
 
-namespace AdventOfCode2019.Tests
+namespace AdventOfCode2019.Tests.Day3
 {
     public class Day3Part2Tests
     {
@@ -25,7 +24,7 @@ namespace AdventOfCode2019.Tests
             var wire1Positions = day3.GetWirePositions(wire1Path);
             var wire2Positions = day3.GetWirePositions(wire2Path);
 
-            var intersections = day3.FindIntersections(wire1Positions, wire2Positions);
+            var intersections = day3.FindIntersectionsAndSteps(wire1Positions, wire2Positions);
 
             int quickestIntersectionPoint = day3.GetQuickestIntersectionPoint(intersections);
 

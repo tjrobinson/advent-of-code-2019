@@ -1,23 +1,22 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode2019
+namespace AdventOfCode2019.Day4
 {
-    public class Day4Part2
+    public class Day4Part1
     {
-        public bool PasswordMeetsCriteria(string password)
+        public virtual bool PasswordMeetsCriteria(string password)
         {
             return this.Is6Digits(password)
                    && this.DigitsNeverDecrease(password)
-                   && this.TwoAdjacentDigitsAreSameButNotPartOfALargerGroup(password);
+                   && this.TwoAdjacentDigitsAreSame(password);
         }
 
         public (int start, int end) GetRange(string rangeInput)
         {
             var rangeParts = rangeInput
                 .Split("-")
-                .Select(Int32.Parse)
+                .Select(int.Parse)
                 .ToArray();
 
             return (start: rangeParts[0], end: rangeParts[1]);
@@ -40,16 +39,16 @@ namespace AdventOfCode2019
             return (passwordAsNumber >= range.start && passwordAsNumber <= range.end);
         }
 
-        public bool TwoAdjacentDigitsAreSameButNotPartOfALargerGroup(string password)
+        public bool TwoAdjacentDigitsAreSame(string password)
         {
-            var passwordAsNumbers = AsNumbers(password);
+            var passwordAsNumbers = this.AsNumbers(password);
 
             int currentNumber = 0;
             bool twoAdjacentDigitsAreSame = false;
 
             foreach (var number in passwordAsNumbers)
             {
-                if (number == currentNumber && !password.Contains($"{number}{number}{number}"))
+                if (number == currentNumber)
                 {
                     twoAdjacentDigitsAreSame = true;
                     break;
@@ -63,7 +62,7 @@ namespace AdventOfCode2019
 
         public bool DigitsNeverDecrease(string password)
         {
-            var passwordAsNumbers = AsNumbers(password);
+            var passwordAsNumbers = this.AsNumbers(password);
 
             int currentNumber = 0;
             bool digitsNeverDecrease = true;
