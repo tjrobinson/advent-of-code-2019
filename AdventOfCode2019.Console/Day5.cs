@@ -7,29 +7,20 @@ namespace AdventOfCode2019.Console
     {
         public static void Testing()
         {
-            var puzzleInput = "3,0,4,0,99";
+            var puzzleInput = "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99";
 
-            var day5 = new Day5Part1(puzzleInput);
+            var day5 = new AdventOfCode2019.Day5.Day5(puzzleInput);
             day5.Execute();
 
             System.Console.WriteLine(day5.Output);
         }
 
-        public static void Testing2()
-        {
-            var puzzleInput = "1002,4,3,4,33";
-
-            var day5 = new Day5Part1(puzzleInput);
-            day5.Execute();
-
-            System.Console.WriteLine(day5.Output);
-        }
 
         public static void PuzzleInput()
         {
             var puzzleInput = File.ReadAllText("./Data/day5.csv");
 
-            var day5 = new Day5Part1(puzzleInput);
+            var day5 = new AdventOfCode2019.Day5.Day5(puzzleInput);
             day5.Execute();
 
             System.Console.WriteLine(day5.Output);

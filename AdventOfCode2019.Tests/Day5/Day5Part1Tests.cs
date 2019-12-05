@@ -12,7 +12,7 @@ namespace AdventOfCode2019.Tests.Day5
         [InlineData("1002,4,3,4,33,99")]
         public void Example(string program)
         {
-            var day5 = new Day5Part1(program);
+            var day5 = new AdventOfCode2019.Day5.Day5(program);
 
             day5.Execute();
 

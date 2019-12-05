@@ -11,7 +11,7 @@ namespace AdventOfCode2019.Day5
 
             int opCode = int.Parse(instructionAsString.Substring(3, 2));
 
-            if (opCode != 1 && opCode != 2 && opCode != 3 && opCode != 4 && opCode != 99)
+            if (opCode != 1 && opCode != 2 && opCode != 3 && opCode != 4 && opCode != 99 && opCode != 5  && opCode != 6  && opCode != 7  && opCode != 8)
             {
                 throw new Exception($"Invalid OpCode: {opCode}");
             }
