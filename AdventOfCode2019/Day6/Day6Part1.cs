@@ -34,11 +34,35 @@ namespace AdventOfCode2019.Day6
             return this.Nodes.Where(n => !this.Edges.Any(e => e.@from == n));
         }
 
+        public void GetNodesToLeft(string node, List<string> nodesToLeft)
+        {
+            var nodeToLeft = this.Edges.SingleOrDefault(e => e.to == node).from;
+
+            if (nodeToLeft != default)
+            {
+                nodesToLeft.Add(nodeToLeft);
+                this.GetNodesToLeft(nodeToLeft, nodesToLeft);
+            }
+        }
+
         public int GetTotalOrbitCount()
         {
             this.BuildNodesAndEdges();
 
-            throw new NotImplementedException();
+            int count = 0;
+
+            foreach (var node in this.Nodes.Where(n => n != "COM"))
+            {
+                Console.WriteLine("Processing " + node);
+
+                var nodesToLeft = new List<string>();
+                this.GetNodesToLeft(node, nodesToLeft);
+
+                count += nodesToLeft.Count();
+
+            }
+
+            return count;
         }
 
         private void BuildNodesAndEdges()
