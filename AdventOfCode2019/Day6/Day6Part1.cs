@@ -15,6 +15,7 @@ namespace AdventOfCode2019.Day6
         public Day6Part1(string orbitInputs)
         {
             this.Orbits = this.GetOrbitsFromString(orbitInputs);
+            this.BuildNodesAndEdges();
         }
 
         public IEnumerable<(string from, string to)> GetOrbitsFromString(string orbitInputs)
@@ -47,7 +48,7 @@ namespace AdventOfCode2019.Day6
 
         public int GetTotalOrbitCount()
         {
-            this.BuildNodesAndEdges();
+
 
             int count = 0;
 

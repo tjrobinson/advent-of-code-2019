@@ -15,7 +15,9 @@
             // Day5.Testing2();
             //Day5.PuzzleInput();
             //Day6.Test();
-            Day6.PuzzleInput();
+            //Day6.PuzzleInput();
+            Day6.Part2Test();
+            Day6.Part2PuzzleInput();
         }
     }
 }
