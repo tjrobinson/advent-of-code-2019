@@ -11,8 +11,10 @@
             // Day3.Part2();
             // Day4.Part1();
             // Day4.Part2();
-            //Day5.Testing();
-            Day5.PuzzleInput();
+            // Day5.Testing();
+            // Day5.Testing2();
+            //Day5.PuzzleInput();
+            Day6.PuzzleInput();
         }
     }
 }
