@@ -45,7 +45,8 @@ namespace AdventOfCode2019.Console
             System.Console.WriteLine("# Day 7 Part 1");
             //Day7.Part1Test();
             //Day7.Part1();
-            Day7.Part2Test();
+            //Day7.Part2Test2();
+            Day7.Part2();
         }
     }
 }

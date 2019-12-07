@@ -1,5 +1,6 @@
 using System;
-using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AdventOfCode2019.IntCode
 {
@@ -46,8 +47,8 @@ namespace AdventOfCode2019.IntCode
 
         public int GetInput()
         {
-            var inputToProvide = this.inputsToProvide[index];
-            index++;
+            var inputToProvide = this.inputsToProvide[this.index];
+            this.index++;
             return inputToProvide;
         }
     }
@@ -65,8 +66,8 @@ namespace AdventOfCode2019.IntCode
 
         public int GetInput()
         {
-            var inputToProvide = this.inputsToProvide[index];
-            index = 1;
+            var inputToProvide = this.inputsToProvide[this.index];
+            this.index = 1;
             return inputToProvide;
         }
     }
@@ -94,7 +95,7 @@ namespace AdventOfCode2019.IntCode
             }
             else
             {
-                return ValueToProvide;
+                return this.ValueToProvide;
             }
         }
     }

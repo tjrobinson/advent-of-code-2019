@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AdventOfCode2019.IntCode;
 
 namespace AdventOfCode2019.Day7
@@ -20,19 +21,18 @@ namespace AdventOfCode2019.Day7
 
             int highestOutput = 0;
 
-            // foreach (var phaseCombination in phaseCombinations)
-            // {
+            foreach (var phaseCombination in phaseCombinations)
+            {
 
-            var phaseCombination = new List<int>{9,8,7,6,5};
+            //var phaseCombination = new List<int>{9,7,8,5,6};
 
                 int output;
 
 
+                output = this.GetOutput(phaseCombination, input);
 
-                    output = this.GetOutput(phaseCombination, input);
 
-
-                System.Console.WriteLine($"{phaseCombination[0]}{phaseCombination[1]}{phaseCombination[2]}{phaseCombination[3]}{phaseCombination[4]} = {output}");
+                Console.WriteLine($"{phaseCombination[0]}{phaseCombination[1]}{phaseCombination[2]}{phaseCombination[3]}{phaseCombination[4]} = {output}");
 
 
                 if (output > highestOutput)
@@ -40,38 +40,48 @@ namespace AdventOfCode2019.Day7
                     highestOutput = output;
 
                 }
-            // }
+            }
 
             return highestOutput;
         }
 
-        private int GetOutput(List<int> phaseCombination, int input)
+        private int GetOutput(List<int> phaseCombination, int initialInput)
         {
-            var valueProviderA = new ChangeableSecondValueMultiInputProvider(phaseCombination[0]);
-            var valueProviderB = new ChangeableSecondValueMultiInputProvider(phaseCombination[1]);
-            var valueProviderC = new ChangeableSecondValueMultiInputProvider(phaseCombination[2]);
-            var valueProviderD = new ChangeableSecondValueMultiInputProvider(phaseCombination[3]);
-            var valueProviderE = new ChangeableSecondValueMultiInputProvider(phaseCombination[4]);
+            var inputProviderA = new ObservableInputProvider(phaseCombination[0]);
+            var inputProviderB = new ObservableInputProvider(phaseCombination[1]);
+            var inputProviderC = new ObservableInputProvider(phaseCombination[2]);
+            var inputProviderD = new ObservableInputProvider(phaseCombination[3]);
+            var inputProviderE = new ObservableInputProvider(phaseCombination[4]);
 
-            var outputProviderA = new ShovingOutputHandler(valueProviderB);
-            var outputProviderB = new ShovingOutputHandler(valueProviderC);
-            var outputProviderC = new ShovingOutputHandler(valueProviderD);
-            var outputProviderD = new ShovingOutputHandler(valueProviderE, e);
-            var outputProviderE = new StoringOutputHandler();
+            inputProviderA.OnNext(initialInput);
 
-            var a = new IntCodeComputer(this.puzzleInput, valueProviderA, outputProviderA);
+            var a = new IntCodeComputer(this.puzzleInput, inputProviderA, new ConsoleOutputHandler(), "Amplifier A");
+            var b = new IntCodeComputer(this.puzzleInput, inputProviderB, new ConsoleOutputHandler(), "Amplifier B");
+            var c = new IntCodeComputer(this.puzzleInput, inputProviderC, new ConsoleOutputHandler(), "Amplifier C");
+            var d = new IntCodeComputer(this.puzzleInput, inputProviderD, new ConsoleOutputHandler(), "Amplifier D");
+            var e = new IntCodeComputer(this.puzzleInput, inputProviderE, new ConsoleOutputHandler(), "Amplifier E");
 
-            var b = new IntCodeComputer(this.puzzleInput, valueProviderB, outputProviderB);
-
-            var c = new IntCodeComputer(this.puzzleInput, valueProviderC, outputProviderC);
-
-            var d = new IntCodeComputer(this.puzzleInput, valueProviderD, outputProviderD);
-
-            var e = new IntCodeComputer(this.puzzleInput, valueProviderE, outputProviderE);
+            inputProviderB.Subscribe(a);
+            inputProviderC.Subscribe(b);
+            inputProviderD.Subscribe(c);
+            inputProviderE.Subscribe(d);
+            inputProviderA.Subscribe(e);
 
 
-            return outputProviderE.Value;
 
+            var tasks = new List<Task>
+            {
+                Task.Run(() => a.Execute()),
+                Task.Run(() => b.Execute()),
+                Task.Run(() => c.Execute()),
+                Task.Run(() => d.Execute()),
+                Task.Run(() => e.Execute())
+            };
+
+            Task.WhenAll(tasks).Wait();
+
+            // Get the last value fed into Amplifier A as that's where Amplifier E's results end up
+            return inputProviderA.values.Last();
         }
 
         public static List<List<int>> GetAllPhaseCombinations()

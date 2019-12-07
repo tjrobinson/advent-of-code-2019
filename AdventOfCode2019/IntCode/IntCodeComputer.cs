@@ -4,10 +4,11 @@ using System.Linq;
 
 namespace AdventOfCode2019.IntCode
 {
-    public class IntCodeComputer
+    public class IntCodeComputer : IObservable<int>
     {
         private readonly IInputProvider inputProvider;
         private readonly IOutputHandler outputHandler;
+        private readonly string _name;
 
         public IEnumerable<int> Memory => this.memory.ToList();
 
@@ -19,14 +20,13 @@ namespace AdventOfCode2019.IntCode
 
         public bool halted;
 
-        List<IObserver<int>> observers;
+        List<IObserver<int>> observers = new List<IObserver<int>>();
 
         public IDisposable Subscribe(IObserver<int> observer)
         {
-            if (! observers.Contains(observer))
-                observers.Add(observer);
+            if (!this.observers.Contains(observer)) this.observers.Add(observer);
 
-            return new Unsubscriber(observers, observer);
+            return new Unsubscriber(this.observers, observer);
         }
 
         private class Unsubscriber : IDisposable
@@ -42,14 +42,15 @@ namespace AdventOfCode2019.IntCode
 
             public void Dispose()
             {
-                if (! (_observer == null)) _observers.Remove(_observer);
+                if (this._observer != null) this._observers.Remove(this._observer);
             }
         }
 
-        public IntCodeComputer(string memory, IInputProvider inputProvider, IOutputHandler outputHandler)
+        public IntCodeComputer(string memory, IInputProvider inputProvider, IOutputHandler outputHandler, string name = null)
         {
             this.inputProvider = inputProvider;
             this.outputHandler = outputHandler;
+            this._name = name;
             this.memory = memory.Split(',').Select(int.Parse).ToList();
         }
 
@@ -102,7 +103,7 @@ namespace AdventOfCode2019.IntCode
             }
             else
             {
-                //Console.WriteLine("halted");
+                Console.WriteLine($"halted {this._name}");
             }
         }
 
@@ -178,6 +179,8 @@ namespace AdventOfCode2019.IntCode
 
             var value = this.memory[position];
 
+
+
             this.outputHandler.Handle(this.memory[position]);
 
             foreach (var outputObserver in this.observers)
@@ -190,6 +193,8 @@ namespace AdventOfCode2019.IntCode
 
         private void HandleInput()
         {
+            //Console.WriteLine($"{this._name} requesting input");
+
             var input = this.inputProvider.GetInput();
 
             var storePosition = this.memory[this.instructionPointer + 1];
