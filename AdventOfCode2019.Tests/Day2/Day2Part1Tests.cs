@@ -23,7 +23,7 @@ namespace AdventOfCode2019.Tests.Day2
 
             string.Join(",", day2.Memory).Should().Be(expectedProgram);
 
-            day2.Output.Should().Be(expectedOutput);
+            day2.Memory[0].Should().Be(expectedOutput);
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace AdventOfCode2019.Tests.Day2
             day2.Execute();
 
             day2.Memory.Should().NotBeNullOrEmpty();
-            day2.Output.Should().Be(4945026);
+            day2.Memory[0].Should().Be(4945026);
         }
     }
 }

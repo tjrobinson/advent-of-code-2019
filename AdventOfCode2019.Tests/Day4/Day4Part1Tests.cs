@@ -6,11 +6,11 @@ namespace AdventOfCode2019.Tests.Day4
 {
     public class Day4Part1Tests
     {
-        private readonly Day4Part1 day4Part1;
+        private readonly Day4Part1 _day4Part1;
 
         public Day4Part1Tests()
         {
-            this.day4Part1 = new Day4Part1();
+            _day4Part1 = new Day4Part1();
         }
 
         [Theory]
@@ -19,7 +19,7 @@ namespace AdventOfCode2019.Tests.Day4
         [InlineData("123789", true)]
         public void DigitsNeverDecreaseTests(string password, bool expected)
         {
-            var meetsCriteria = this.day4Part1.DigitsNeverDecrease(password);
+            var meetsCriteria = _day4Part1.DigitsNeverDecrease(password);
 
             meetsCriteria.Should().Be(expected);
         }
@@ -30,7 +30,7 @@ namespace AdventOfCode2019.Tests.Day4
         [InlineData("123789", false)]
         public void TwoAdjacentDigitsAreSameTests(string password, bool expected)
         {
-            var meetsCriteria = this.day4Part1.TwoAdjacentDigitsAreSame(password);
+            var meetsCriteria = _day4Part1.TwoAdjacentDigitsAreSame(password);
 
             meetsCriteria.Should().Be(expected);
         }
@@ -41,7 +41,7 @@ namespace AdventOfCode2019.Tests.Day4
         [InlineData("123789", false)]
         public void PasswordMeetsCriteriaTests(string password, bool expected)
         {
-            var meetsCriteria = this.day4Part1.PasswordMeetsCriteria(password);
+            var meetsCriteria = _day4Part1.PasswordMeetsCriteria(password);
 
             meetsCriteria.Should().Be(expected);
         }

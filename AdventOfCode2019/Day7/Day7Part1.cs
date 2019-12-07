@@ -1,17 +1,16 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using AdventOfCode2019.IntCode;
 
 namespace AdventOfCode2019.Day7
 {
-    public class Day7
+    public class Day7Part1
     {
-        private readonly string puzzleInput;
+        private readonly string _puzzleInput;
 
-        public Day7(string puzzleInput)
+        public Day7Part1(string puzzleInput)
         {
-            this.puzzleInput = puzzleInput;
+            this._puzzleInput = puzzleInput;
         }
 
         public int GetHighestOutput()
@@ -38,23 +37,23 @@ namespace AdventOfCode2019.Day7
         private int GetOutput(List<int> phaseCombination)
         {
             var outputHandler = new StoringOutputHandler();
-            var a = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[0], 0), outputHandler);
+            var a = new IntCodeComputer(this._puzzleInput, new MultiInputProvider(phaseCombination[0], 0), outputHandler);
             a.Execute();
             var outputA = outputHandler.Value;
 
-            var b = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[1], outputA), outputHandler);
+            var b = new IntCodeComputer(this._puzzleInput, new MultiInputProvider(phaseCombination[1], outputA), outputHandler);
             b.Execute();
             var outputB = outputHandler.Value;
 
-            var c = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[2], outputB), outputHandler);
+            var c = new IntCodeComputer(this._puzzleInput, new MultiInputProvider(phaseCombination[2], outputB), outputHandler);
             c.Execute();
             var outputC = outputHandler.Value;
 
-            var d = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[3], outputC), outputHandler);
+            var d = new IntCodeComputer(this._puzzleInput, new MultiInputProvider(phaseCombination[3], outputC), outputHandler);
             d.Execute();
             var outputD = outputHandler.Value;
 
-            var e = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[4], outputD), outputHandler);
+            var e = new IntCodeComputer(this._puzzleInput, new MultiInputProvider(phaseCombination[4], outputD), outputHandler);
             e.Execute();
             var outputE = outputHandler.Value;
 
@@ -75,15 +74,12 @@ namespace AdventOfCode2019.Day7
                         {
                             for (int m = 0; m <= 4; m++)
                             {
-
                                 var phaseCombination = new List<int> {i, j, k, l, m};
 
                                 if (phaseCombination.Distinct().Count() == 5)
                                 {
                                     phaseCombinations.Add(new List<int> {i, j, k, l, m});
                                 }
-
-
                             }
                         }
                     }

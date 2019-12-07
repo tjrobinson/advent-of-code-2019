@@ -1,4 +1,3 @@
-using AdventOfCode2019.Day3;
 using FluentAssertions;
 using Xunit;
 

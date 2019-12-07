@@ -1,5 +1,4 @@
 using System.IO;
-using AdventOfCode2019.Day3;
 
 namespace AdventOfCode2019.Console
 {

@@ -8,11 +8,11 @@ namespace AdventOfCode2019.Day7
 {
     public class Day7Part2
     {
-        private readonly string puzzleInput;
+        private readonly string _puzzleInput;
 
         public Day7Part2(string puzzleInput)
         {
-            this.puzzleInput = puzzleInput;
+            this._puzzleInput = puzzleInput;
         }
 
         public int GetHighestOutput(int input)
@@ -23,17 +23,11 @@ namespace AdventOfCode2019.Day7
 
             foreach (var phaseCombination in phaseCombinations)
             {
-
-            //var phaseCombination = new List<int>{9,7,8,5,6};
-
                 int output;
-
 
                 output = this.GetOutput(phaseCombination, input);
 
-
                 Console.WriteLine($"{phaseCombination[0]}{phaseCombination[1]}{phaseCombination[2]}{phaseCombination[3]}{phaseCombination[4]} = {output}");
-
 
                 if (output > highestOutput)
                 {
@@ -55,33 +49,31 @@ namespace AdventOfCode2019.Day7
 
             inputProviderA.OnNext(initialInput);
 
-            var a = new IntCodeComputer(this.puzzleInput, inputProviderA, new ConsoleOutputHandler(), "Amplifier A");
-            var b = new IntCodeComputer(this.puzzleInput, inputProviderB, new ConsoleOutputHandler(), "Amplifier B");
-            var c = new IntCodeComputer(this.puzzleInput, inputProviderC, new ConsoleOutputHandler(), "Amplifier C");
-            var d = new IntCodeComputer(this.puzzleInput, inputProviderD, new ConsoleOutputHandler(), "Amplifier D");
-            var e = new IntCodeComputer(this.puzzleInput, inputProviderE, new ConsoleOutputHandler(), "Amplifier E");
+            var amplifierA = new IntCodeComputer(this._puzzleInput, inputProviderA, new ConsoleOutputHandler(), "Amplifier A");
+            var amplifierB = new IntCodeComputer(this._puzzleInput, inputProviderB, new ConsoleOutputHandler(), "Amplifier B");
+            var amplifierC = new IntCodeComputer(this._puzzleInput, inputProviderC, new ConsoleOutputHandler(), "Amplifier C");
+            var amplifierD = new IntCodeComputer(this._puzzleInput, inputProviderD, new ConsoleOutputHandler(), "Amplifier D");
+            var amplifierE = new IntCodeComputer(this._puzzleInput, inputProviderE, new ConsoleOutputHandler(), "Amplifier E");
 
-            inputProviderB.Subscribe(a);
-            inputProviderC.Subscribe(b);
-            inputProviderD.Subscribe(c);
-            inputProviderE.Subscribe(d);
-            inputProviderA.Subscribe(e);
-
-
+            inputProviderB.Subscribe(amplifierA);
+            inputProviderC.Subscribe(amplifierB);
+            inputProviderD.Subscribe(amplifierC);
+            inputProviderE.Subscribe(amplifierD);
+            inputProviderA.Subscribe(amplifierE);
 
             var tasks = new List<Task>
             {
-                Task.Run(() => a.Execute()),
-                Task.Run(() => b.Execute()),
-                Task.Run(() => c.Execute()),
-                Task.Run(() => d.Execute()),
-                Task.Run(() => e.Execute())
+                Task.Run(() => amplifierA.Execute()),
+                Task.Run(() => amplifierB.Execute()),
+                Task.Run(() => amplifierC.Execute()),
+                Task.Run(() => amplifierD.Execute()),
+                Task.Run(() => amplifierE.Execute())
             };
 
             Task.WhenAll(tasks).Wait();
 
             // Get the last value fed into Amplifier A as that's where Amplifier E's results end up
-            return inputProviderA.values.Last();
+            return inputProviderA.Values.Last();
         }
 
         public static List<List<int>> GetAllPhaseCombinations()
@@ -98,15 +90,12 @@ namespace AdventOfCode2019.Day7
                         {
                             for (int m = 5; m <= 9; m++)
                             {
-
                                 var phaseCombination = new List<int> {i, j, k, l, m};
 
                                 if (phaseCombination.Distinct().Count() == 5)
                                 {
                                     phaseCombinations.Add(new List<int> {i, j, k, l, m});
                                 }
-
-
                             }
                         }
                     }

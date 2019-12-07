@@ -6,63 +6,46 @@ namespace AdventOfCode2019.IntCode
 {
     public class IntCodeComputer : IObservable<int>
     {
-        private readonly IInputProvider inputProvider;
-        private readonly IOutputHandler outputHandler;
+        private readonly IInputProvider _inputProvider;
+        private readonly IOutputHandler _outputHandler;
         private readonly string _name;
 
-        public IEnumerable<int> Memory => this.memory.ToList();
+        public IReadOnlyList<int> Memory => this._memory.ToList();
 
-        public int Output => this.memory[0];
+        public int Output => this._memory[0];
 
-        private readonly List<int> memory;
+        private readonly List<int> _memory;
 
-        private int instructionPointer;
+        private int _instructionPointer;
 
-        public bool halted;
+        public bool Halted;
 
-        List<IObserver<int>> observers = new List<IObserver<int>>();
+        List<IObserver<int>> _observers = new List<IObserver<int>>();
 
         public IDisposable Subscribe(IObserver<int> observer)
         {
-            if (!this.observers.Contains(observer)) this.observers.Add(observer);
+            if (!this._observers.Contains(observer)) this._observers.Add(observer);
 
-            return new Unsubscriber(this.observers, observer);
-        }
-
-        private class Unsubscriber : IDisposable
-        {
-            private List<IObserver<int>> _observers;
-            private IObserver<int> _observer;
-
-            public Unsubscriber(List<IObserver<int>> observers, IObserver<int> observer)
-            {
-                this._observers = observers;
-                this._observer = observer;
-            }
-
-            public void Dispose()
-            {
-                if (this._observer != null) this._observers.Remove(this._observer);
-            }
+            return new Unsubscriber(this._observers, observer);
         }
 
         public IntCodeComputer(string memory, IInputProvider inputProvider, IOutputHandler outputHandler, string name = null)
         {
-            this.inputProvider = inputProvider;
-            this.outputHandler = outputHandler;
+            this._inputProvider = inputProvider;
+            this._outputHandler = outputHandler;
             this._name = name;
-            this.memory = memory.Split(',').Select(int.Parse).ToList();
+            this._memory = memory.Split(',').Select(int.Parse).ToList();
         }
 
         public void Initialise(int noun, int verb)
         {
-            this.memory[1] = noun;
-            this.memory[2] = verb;
+            this._memory[1] = noun;
+            this._memory[2] = verb;
         }
 
         public void Execute()
         {
-            int instructionValue = this.memory[this.instructionPointer];
+            int instructionValue = this._memory[this._instructionPointer];
 
             var instruction = InstructionParser.Parse(instructionValue);
 
@@ -93,135 +76,127 @@ namespace AdventOfCode2019.IntCode
                     this.HandleEquals(instruction);
                     break;
                 case 99:
-                    this.halted = true;
+                    this.Halted = true;
                     break;
             }
 
-            if (!this.halted)
+            if (!this.Halted)
             {
                 this.Execute();
-            }
-            else
-            {
-                Console.WriteLine($"halted {this._name}");
             }
         }
 
         private void HandleEquals(Instruction instruction)
         {
-            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 1]] : this.memory[this.instructionPointer + 1];
-            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 2]] : this.memory[this.instructionPointer + 2];
-            var z = this.memory[this.instructionPointer + 3];
+            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 1]] : this._memory[this._instructionPointer + 1];
+            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 2]] : this._memory[this._instructionPointer + 2];
+            var z = this._memory[this._instructionPointer + 3];
 
             if (x  == y)
             {
-                this.memory[z] = 1;
+                this._memory[z] = 1;
             }
             else
             {
-                this.memory[z] = 0;
+                this._memory[z] = 0;
             }
 
-            this.instructionPointer += 4;
+            this._instructionPointer += 4;
         }
 
         private void HandleLessThan(Instruction instruction)
         {
-            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 1]] : this.memory[this.instructionPointer + 1];
-            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 2]] : this.memory[this.instructionPointer + 2];
-            var z = this.memory[this.instructionPointer + 3];
+            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 1]] : this._memory[this._instructionPointer + 1];
+            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 2]] : this._memory[this._instructionPointer + 2];
+            var z = this._memory[this._instructionPointer + 3];
 
             if (x < y)
             {
-                this.memory[z] = 1;
+                this._memory[z] = 1;
             }
             else
             {
-                this.memory[z] = 0;
+                this._memory[z] = 0;
             }
 
-            this.instructionPointer += 4;
+            this._instructionPointer += 4;
         }
 
         private void HandleJumpIfFalse(Instruction instruction)
         {
-            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 1]] : this.memory[this.instructionPointer + 1];
-            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 2]] : this.memory[this.instructionPointer + 2];
+            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 1]] : this._memory[this._instructionPointer + 1];
+            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 2]] : this._memory[this._instructionPointer + 2];
 
             if (x == 0)
             {
-                this.instructionPointer = y;
+                this._instructionPointer = y;
             }
             else
             {
-                this.instructionPointer += 3;
+                this._instructionPointer += 3;
             }
         }
 
         private void HandleJumpIfTrue(Instruction instruction)
         {
-            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 1]] : this.memory[this.instructionPointer + 1];
-            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 2]] : this.memory[this.instructionPointer + 2];
+            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 1]] : this._memory[this._instructionPointer + 1];
+            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 2]] : this._memory[this._instructionPointer + 2];
 
             if (x != 0)
             {
-                this.instructionPointer = y;
+                this._instructionPointer = y;
             }
             else
             {
-                this.instructionPointer += 3;
+                this._instructionPointer += 3;
             }
         }
 
         private void HandleOutput()
         {
-            var position = this.memory[this.instructionPointer + 1];
+            var position = this._memory[this._instructionPointer + 1];
 
-            var value = this.memory[position];
+            var value = this._memory[position];
 
+            this._outputHandler.Handle(value);
 
-
-            this.outputHandler.Handle(this.memory[position]);
-
-            foreach (var outputObserver in this.observers)
+            foreach (var outputObserver in this._observers)
             {
                 outputObserver.OnNext(value);
             }
 
-            this.instructionPointer += 2;
+            this._instructionPointer += 2;
         }
 
         private void HandleInput()
         {
-            //Console.WriteLine($"{this._name} requesting input");
+            var input = this._inputProvider.GetInput();
 
-            var input = this.inputProvider.GetInput();
+            var storePosition = this._memory[this._instructionPointer + 1];
 
-            var storePosition = this.memory[this.instructionPointer + 1];
+            this._memory[storePosition] = input;
 
-            this.memory[storePosition] = input;
-
-            this.instructionPointer += 2;
+            this._instructionPointer += 2;
         }
 
         private void HandleAddition(Instruction instruction)
         {
-            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 1]] : this.memory[this.instructionPointer + 1];
-            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 2]] : this.memory[this.instructionPointer + 2];
+            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 1]] : this._memory[this._instructionPointer + 1];
+            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 2]] : this._memory[this._instructionPointer + 2];
 
-            this.memory[this.memory[this.instructionPointer + 3]] = x + y;
+            this._memory[this._memory[this._instructionPointer + 3]] = x + y;
 
-            this.instructionPointer += 4;
+            this._instructionPointer += 4;
         }
 
         private void HandleMultiply(Instruction instruction)
         {
-            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 1]] : this.memory[this.instructionPointer + 1];
-            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this.memory[this.memory[this.instructionPointer + 2]] : this.memory[this.instructionPointer + 2];
+            var x = instruction.ParameterModes[0] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 1]] : this._memory[this._instructionPointer + 1];
+            var y = instruction.ParameterModes[1] == ParameterMode.Position ? this._memory[this._memory[this._instructionPointer + 2]] : this._memory[this._instructionPointer + 2];
 
-            this.memory[this.memory[this.instructionPointer + 3]] = x * y;
+            this._memory[this._memory[this._instructionPointer + 3]] = x * y;
 
-            this.instructionPointer += 4;
+            this._instructionPointer += 4;
         }
     }
 }

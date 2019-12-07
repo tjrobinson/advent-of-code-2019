@@ -1,62 +1,49 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AdventOfCode2019.IntCode
 {
     public class ObservableInputProvider : IInputProvider, IObserver<int>
     {
-        public readonly List<int> values = new List<int>();
+        public readonly List<int> Values = new List<int>();
 
-        private int index = 0;
+        private int _index = 0;
 
         public ObservableInputProvider(int initialValue)
         {
-            this.values.Add(initialValue);
+            this.Values.Add(initialValue);
         }
 
         public int GetInput()
         {
-            while (this.values.Count() <= this.index)
+            while (this.Values.Count() <= this._index)
             {
-                //Console.WriteLine("Waiting");
-                //Task.Delay(100).Wait();
+                // Wait
             }
 
-            var value = this.values[this.index];
-            this.index++;
-
-            Console.WriteLine($"Providing {value}");
+            var value = this.Values[this._index];
+            this._index++;
 
             return value;
         }
 
-        private IDisposable unsubscriber;
-
         public virtual void Subscribe(IObservable<int> provider)
         {
-            this.unsubscriber = provider.Subscribe(this);
-        }
-
-        public virtual void Unsubscribe()
-        {
-            this.unsubscriber.Dispose();
+            provider.Subscribe(this);
         }
 
         public virtual void OnCompleted()
         {
-
         }
 
         public virtual void OnError(Exception error)
         {
-
         }
 
         public virtual void OnNext(int value)
         {
-            this.values.Add(value);
+            this.Values.Add(value);
         }
     }
 }
