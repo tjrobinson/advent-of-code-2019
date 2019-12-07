@@ -11,8 +11,8 @@ namespace AdventOfCode2019.Tests.Day7
         {
             var getAllPhaseCombinations = AdventOfCode2019.Day7.Day7.GetAllPhaseCombinations();
 
-            getAllPhaseCombinations.Should().ContainEquivalentOf(new List<int> { 0, 0, 0, 0 });
-            getAllPhaseCombinations.Should().ContainEquivalentOf(new List<int> { 4, 4, 4, 4 });
+            getAllPhaseCombinations.Should().ContainEquivalentOf(new List<int> {0, 1, 2, 3, 4});
+            getAllPhaseCombinations.Should().ContainEquivalentOf(new List<int> { 4, 3, 2, 1, 0 });
         }
     }
 }

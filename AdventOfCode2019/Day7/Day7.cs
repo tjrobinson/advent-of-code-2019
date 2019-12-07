@@ -1,6 +1,7 @@
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using AdventOfCode2019.IntCode;
 
 namespace AdventOfCode2019.Day7
 {
@@ -21,7 +22,7 @@ namespace AdventOfCode2019.Day7
 
             foreach (var phaseCombination in phaseCombinations)
             {
-                Debug.WriteLine($"{phaseCombination[0]}{phaseCombination[1]}{phaseCombination[2]}{phaseCombination[3]}");
+                System.Console.WriteLine($"{phaseCombination[0]}{phaseCombination[1]}{phaseCombination[2]}{phaseCombination[3]}{phaseCombination[4]}");
 
                 int output = this.GetOutput(phaseCombination);
 
@@ -36,7 +37,28 @@ namespace AdventOfCode2019.Day7
 
         private int GetOutput(List<int> phaseCombination)
         {
-            return 0;
+            var outputHandler = new StoringOutputHandler();
+            var a = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[0], 0), outputHandler);
+            a.Execute();
+            var outputA = outputHandler.Value;
+
+            var b = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[1], outputA), outputHandler);
+            b.Execute();
+            var outputB = outputHandler.Value;
+
+            var c = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[2], outputB), outputHandler);
+            c.Execute();
+            var outputC = outputHandler.Value;
+
+            var d = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[3], outputC), outputHandler);
+            d.Execute();
+            var outputD = outputHandler.Value;
+
+            var e = new IntCodeComputer(this.puzzleInput, new MultiInputProvider(phaseCombination[4], outputD), outputHandler);
+            e.Execute();
+            var outputE = outputHandler.Value;
+
+            return outputE;
         }
 
         public static List<List<int>> GetAllPhaseCombinations()
@@ -51,7 +73,18 @@ namespace AdventOfCode2019.Day7
                     {
                         for (int l = 0; l <= 4; l++)
                         {
-                            phaseCombinations.Add(new List<int> {i, j, k, l});
+                            for (int m = 0; m <= 4; m++)
+                            {
+
+                                var phaseCombination = new List<int> {i, j, k, l, m};
+
+                                if (phaseCombination.Distinct().Count() == 5)
+                                {
+                                    phaseCombinations.Add(new List<int> {i, j, k, l, m});
+                                }
+
+
+                            }
                         }
                     }
                 }

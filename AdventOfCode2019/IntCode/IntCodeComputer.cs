@@ -7,6 +7,8 @@ namespace AdventOfCode2019.IntCode
     public class IntCodeComputer
     {
         private readonly IInputProvider inputProvider;
+        private readonly IOutputHandler outputHandler;
+
         public IEnumerable<int> Memory => this.memory.ToList();
 
         public int Output => this.memory[0];
@@ -17,9 +19,10 @@ namespace AdventOfCode2019.IntCode
 
         private bool halted;
 
-        public IntCodeComputer(string memory, IInputProvider inputProvider)
+        public IntCodeComputer(string memory, IInputProvider inputProvider, IOutputHandler outputHandler)
         {
             this.inputProvider = inputProvider;
+            this.outputHandler = outputHandler;
             this.memory = memory.Split(',').Select(int.Parse).ToList();
         }
 
@@ -141,7 +144,9 @@ namespace AdventOfCode2019.IntCode
         private void HandleOutput()
         {
             var outputPosition = this.memory[this.instructionPointer + 1];
-            Console.WriteLine($"Output: {outputPosition}");
+
+            this.outputHandler.Handle(this.memory[outputPosition]);
+
             this.instructionPointer += 2;
         }
 

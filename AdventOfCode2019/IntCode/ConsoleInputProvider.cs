@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace AdventOfCode2019.IntCode
 {
@@ -29,6 +30,25 @@ namespace AdventOfCode2019.IntCode
         public int GetInput()
         {
             return this.inputToProvide;
+        }
+    }
+
+    public class MultiInputProvider : IInputProvider
+    {
+        private readonly int[] inputsToProvide;
+
+        public MultiInputProvider(params int[] inputsToProvide)
+        {
+            this.inputsToProvide = inputsToProvide;
+        }
+
+        private int index = 0;
+
+        public int GetInput()
+        {
+            var inputToProvide = this.inputsToProvide[index];
+            index++;
+            return inputToProvide;
         }
     }
 }
