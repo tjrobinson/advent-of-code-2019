@@ -11,7 +11,7 @@ namespace AdventOfCode2019.Tests.Day5
         [InlineData("1002,4,3,4,33,99")]
         public void Example(string program)
         {
-            var day5 = new IntCodeComputer(program);
+            var day5 = new IntCodeComputer(program, new FixedInputProvider(1));
 
             day5.Execute();
 

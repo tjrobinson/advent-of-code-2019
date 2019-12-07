@@ -13,7 +13,7 @@ namespace AdventOfCode2019.Console
 
                 for (int verb=0; verb<=99; verb++) {
 
-                    var day2 = new IntCodeComputer(startingMemory);
+                    var day2 = new IntCodeComputer(startingMemory, new FixedInputProvider(1));
                     day2.Initialise(noun, verb);
                     day2.Execute();
 

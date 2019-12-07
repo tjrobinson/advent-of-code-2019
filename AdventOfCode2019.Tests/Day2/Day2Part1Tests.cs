@@ -14,7 +14,7 @@ namespace AdventOfCode2019.Tests.Day2
         [InlineData("1,1,1,4,99,5,6,0,99", 30, "30,1,1,4,2,5,6,0,99")]
         public void Examples(string input, int expectedOutput, string expectedProgram)
         {
-            var day2 = new IntCodeComputer(input);
+            var day2 = new IntCodeComputer(input, new FixedInputProvider(1));
 
             day2.Memory.Should().NotBeNullOrEmpty();
             string.Join(",", day2.Memory).Should().Be(input);
@@ -31,7 +31,7 @@ namespace AdventOfCode2019.Tests.Day2
         {
             var puzzleInput = File.ReadAllText("./Data/day2.csv");
 
-            var day2 = new IntCodeComputer(puzzleInput);
+            var day2 = new IntCodeComputer(puzzleInput, new FixedInputProvider(1));
 
             day2.Execute();
 
