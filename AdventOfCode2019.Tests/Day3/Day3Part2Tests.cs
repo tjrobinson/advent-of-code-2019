@@ -11,7 +11,7 @@ namespace AdventOfCode2019.Tests.Day3
         [InlineData("R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51", "U98,R91,D20,R16,D67,R40,U7,R15,U6,R7", 410)]
         public void Examples(string wire1Path, string wire2Path, int expectedQuickestIntersectionPoint)
         {
-            var day3 = new Day3Part2();
+            var day3 = new AdventOfCode2019.Day3.Day3();
 
             var wire1Positions = day3.GetWirePositions(wire1Path);
             var wire2Positions = day3.GetWirePositions(wire2Path);

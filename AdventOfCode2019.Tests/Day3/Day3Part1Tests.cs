@@ -13,7 +13,7 @@ namespace AdventOfCode2019.Tests.Day3
         [InlineData("R98,U47,R26,D63,R33,U87,L62,D20,R33,U53,R51", "U98,R91,D20,R16,D67,R40,U7,R15,U6,R7", 135)]
         public void Examples(string wire1Path, string wire2Path, int expectedClosestIntersectionPointDistance)
         {
-            var day3 = new Day3Part1();
+            var day3 = new AdventOfCode2019.Day3.Day3();
 
             var wire1Positions = day3.GetWirePositions(wire1Path);
             var wire2Positions = day3.GetWirePositions(wire2Path);
@@ -29,7 +29,7 @@ namespace AdventOfCode2019.Tests.Day3
         [InlineData("R5")]
         public void GetWirePositionsTests(string wirePath)
         {
-            var day3 = new Day3Part1();
+            var day3 = new AdventOfCode2019.Day3.Day3();
 
             var wirePositions = day3.GetWirePositions(wirePath);
 

@@ -9,7 +9,7 @@ namespace AdventOfCode2019.Console
         {
             var puzzleInput = File.ReadAllLines("./Data/day3.csv");
 
-            var day3 = new Day3Part2();
+            var day3 = new AdventOfCode2019.Day3.Day3();
 
             var wire1Positions = day3.GetWirePositions(puzzleInput[0]);
             var wire2Positions = day3.GetWirePositions(puzzleInput[1]);
