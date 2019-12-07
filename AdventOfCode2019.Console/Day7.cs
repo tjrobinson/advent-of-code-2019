@@ -23,5 +23,15 @@ namespace AdventOfCode2019.Console
 
             System.Console.WriteLine($"Highest output: {highestOutput}");
         }
+
+        public static void Part2Test()
+        {
+            var puzzleInput = "3,26,1001,26,-4,26,3,27,1002,27,2,27,1,27,26,27,4,27,1001,28,-1,28,1005,28,6,99,0,0,5";
+
+            var day7 = new AdventOfCode2019.Day7.Day7Part2(puzzleInput);
+            var highestOutput = day7.GetHighestOutput(0);
+
+            System.Console.WriteLine($"Highest output: {highestOutput}");
+        }
     }
 }

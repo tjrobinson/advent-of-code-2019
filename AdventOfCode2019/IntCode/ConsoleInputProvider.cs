@@ -51,4 +51,51 @@ namespace AdventOfCode2019.IntCode
             return inputToProvide;
         }
     }
+
+    public class StickyMultiInputProvider : IInputProvider
+    {
+        private readonly int[] inputsToProvide;
+
+        public StickyMultiInputProvider(params int[] inputsToProvide)
+        {
+            this.inputsToProvide = inputsToProvide;
+        }
+
+        private int index = 0;
+
+        public int GetInput()
+        {
+            var inputToProvide = this.inputsToProvide[index];
+            index = 1;
+            return inputToProvide;
+        }
+    }
+
+
+    public class ChangeableSecondValueMultiInputProvider : IInputProvider
+    {
+        private readonly int _phase;
+
+        public ChangeableSecondValueMultiInputProvider(int phase)
+        {
+            this._phase = phase;
+        }
+
+        private bool phaseProvided = false;
+
+        public int ValueToProvide { get; set; }
+
+        public int GetInput()
+        {
+            if (!this.phaseProvided)
+            {
+                this.phaseProvided = true;
+                return this._phase;
+            }
+            else
+            {
+                return ValueToProvide;
+            }
+        }
+    }
 }

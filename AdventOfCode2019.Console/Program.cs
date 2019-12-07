@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode2019.Console
+﻿using AdventOfCode2019.Day7;
+
+namespace AdventOfCode2019.Console
 {
     static class Program
     {
@@ -42,7 +44,8 @@
 
             System.Console.WriteLine("# Day 7 Part 1");
             //Day7.Part1Test();
-            Day7.Part1();
+            //Day7.Part1();
+            Day7.Part2Test();
         }
     }
 }

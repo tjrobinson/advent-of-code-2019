@@ -22,4 +22,19 @@ namespace AdventOfCode2019.IntCode
             this.Value = outputValue;
         }
     }
+
+    public class ShovingOutputHandler : IOutputHandler
+    {
+        private readonly ChangeableSecondValueMultiInputProvider _inputProvider;
+
+        public ShovingOutputHandler(ChangeableSecondValueMultiInputProvider inputProvider, IntCodeComputer nextComputer)
+        {
+            this._inputProvider = inputProvider;
+        }
+
+        public void Handle(int outputValue)
+        {
+            nextCompute
+        }
+    }
 }

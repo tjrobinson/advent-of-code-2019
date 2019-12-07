@@ -17,7 +17,34 @@ namespace AdventOfCode2019.IntCode
 
         private int instructionPointer;
 
-        private bool halted;
+        public bool halted;
+
+        List<IObserver<int>> observers;
+
+        public IDisposable Subscribe(IObserver<int> observer)
+        {
+            if (! observers.Contains(observer))
+                observers.Add(observer);
+
+            return new Unsubscriber(observers, observer);
+        }
+
+        private class Unsubscriber : IDisposable
+        {
+            private List<IObserver<int>> _observers;
+            private IObserver<int> _observer;
+
+            public Unsubscriber(List<IObserver<int>> observers, IObserver<int> observer)
+            {
+                this._observers = observers;
+                this._observer = observer;
+            }
+
+            public void Dispose()
+            {
+                if (! (_observer == null)) _observers.Remove(_observer);
+            }
+        }
 
         public IntCodeComputer(string memory, IInputProvider inputProvider, IOutputHandler outputHandler)
         {
@@ -72,6 +99,10 @@ namespace AdventOfCode2019.IntCode
             if (!this.halted)
             {
                 this.Execute();
+            }
+            else
+            {
+                //Console.WriteLine("halted");
             }
         }
 
@@ -143,9 +174,16 @@ namespace AdventOfCode2019.IntCode
 
         private void HandleOutput()
         {
-            var outputPosition = this.memory[this.instructionPointer + 1];
+            var position = this.memory[this.instructionPointer + 1];
 
-            this.outputHandler.Handle(this.memory[outputPosition]);
+            var value = this.memory[position];
+
+            this.outputHandler.Handle(this.memory[position]);
+
+            foreach (var outputObserver in this.observers)
+            {
+                outputObserver.OnNext(value);
+            }
 
             this.instructionPointer += 2;
         }
