@@ -1,33 +1,27 @@
 using System.IO;
-using System.Linq;
-using AdventOfCode2019.Day1;
+using AdventOfCode2019.IntCode;
 
 namespace AdventOfCode2019.Console
 {
     public static class Day2
     {
-        public static void Part1()
-        {
-            var file = File.ReadAllLines("./Data/day1.csv");
-
-            var masses = file.AsEnumerable().Select(decimal.Parse);
-
-            var day1 = new Day1Part2();
-            var fuelNeeded = day1.GetFuelNeeded(masses);
-
-            System.Console.WriteLine($"Fuel needed: {fuelNeeded}");
-        }
-
         public static void Part2()
         {
-            var file = File.ReadAllLines("./Data/day1.csv");
+            var startingMemory = File.ReadAllText("./Data/day2-raw.csv");
 
-            var masses = file.AsEnumerable().Select(decimal.Parse);
+            for (int noun=0; noun<=99; noun++) {
 
-            var day1 = new Day1Part1();
-            var fuelNeeded = day1.GetFuelNeeded(masses);
+                for (int verb=0; verb<=99; verb++) {
 
-            System.Console.WriteLine($"Fuel needed: {fuelNeeded}");
+                    var day2 = new IntCodeComputer(startingMemory);
+                    day2.Initialise(noun, verb);
+                    day2.Execute();
+
+                    if (day2.Output == 19690720) {
+                        System.Console.WriteLine($"Noun: {noun} Verb: {verb}");
+                    }
+                }
+            }
         }
     }
 }

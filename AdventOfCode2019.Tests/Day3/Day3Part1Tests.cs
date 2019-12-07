@@ -27,14 +27,13 @@ namespace AdventOfCode2019.Tests.Day3
 
         [Theory]
         [InlineData("R5")]
-        [InlineData("L5")]
         public void GetWirePositionsTests(string wirePath)
         {
             var day3 = new Day3Part1();
 
             var wirePositions = day3.GetWirePositions(wirePath);
 
-            wirePositions.Should().BeEquivalentTo(new List<ValueTuple<int, int>> { (0,0), (5,0)});
+            wirePositions.Should().BeEquivalentTo(new List<ValueTuple<int, int>> { (0, 0), (1, 0), (2, 0), (3, 0), (4, 0), (5, 0) });
         }
     }
 }

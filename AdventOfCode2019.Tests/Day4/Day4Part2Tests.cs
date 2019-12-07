@@ -6,7 +6,7 @@ namespace AdventOfCode2019.Tests.Day4
 {
     public class Day4Part2Tests
     {
-        private readonly Day4Part2 day4Part2;
+        private readonly Day4Part2 day4Part2 = new Day4Part2();
 
         [Theory]
         [InlineData("112233", true)]

@@ -1,4 +1,4 @@
-namespace AdventOfCode2019.Day5
+namespace AdventOfCode2019.IntCode
 {
     public class Parameter
     {

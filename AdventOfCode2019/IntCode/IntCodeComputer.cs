@@ -2,30 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode2019.Day5
+namespace AdventOfCode2019.IntCode
 {
-    public class Day5
+    public class IntCodeComputer
     {
         public IEnumerable<int> Memory => this.memory.ToList();
 
         public int Output => this.memory[0];
 
-        private List<int> memory;
+        private readonly List<int> memory;
 
         private int instructionPointer;
 
         private bool halted;
 
-        public Day5(string memory)
+        public IntCodeComputer(string memory)
         {
             this.memory = memory.Split(',').Select(int.Parse).ToList();
+        }
+
+        public void Initialise(int noun, int verb)
+        {
+            this.memory[1] = noun;
+            this.memory[2] = verb;
         }
 
         public void Execute()
         {
             int instructionValue = this.memory[this.instructionPointer];
-
-            Console.WriteLine(instructionValue);
 
             var instruction = InstructionParser.Parse(instructionValue);
 
@@ -38,10 +42,10 @@ namespace AdventOfCode2019.Day5
                     this.HandleMultiply(instruction);
                     break;
                 case 3:
-                    this.HandleInput(instruction);
+                    this.HandleInput();
                     break;
                 case 4:
-                    this.HandleOutput(instruction);
+                    this.HandleOutput();
                     break;
                 case 5:
                     this.HandleJumpIfTrue(instruction);
@@ -130,22 +134,17 @@ namespace AdventOfCode2019.Day5
             {
                 this.instructionPointer += 3;
             }
-
         }
 
-
-        private void HandleOutput(Instruction instruction)
+        private void HandleOutput()
         {
-            // Output
             var outputPosition = this.memory[this.instructionPointer + 1];
-            Console.WriteLine($"Output: {this.memory[outputPosition]}");
+            Console.WriteLine($"Output: {outputPosition}");
             this.instructionPointer += 2;
         }
 
-        private void HandleInput(Instruction instruction)
+        private void HandleInput()
         {
-            // Input
-
             Console.WriteLine("Input?");
             var input = Console.ReadLine();
 

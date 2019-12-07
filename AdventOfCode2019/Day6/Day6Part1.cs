@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace AdventOfCode2019.Day6
@@ -54,7 +55,7 @@ namespace AdventOfCode2019.Day6
 
             foreach (var node in this.Nodes.Where(n => n != "COM"))
             {
-                Console.WriteLine("Processing " + node);
+                Debug.WriteLine("Processing " + node);
 
                 var nodesToLeft = new List<string>();
                 this.GetNodesToLeft(node, nodesToLeft);

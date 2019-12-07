@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AdventOfCode2019
+namespace AdventOfCode2019.Day3
 {
     public class PositionWithStepEqualityComparer : IEqualityComparer<(int x, int y, int step)>
     {

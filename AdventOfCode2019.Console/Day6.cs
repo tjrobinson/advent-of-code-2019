@@ -35,7 +35,7 @@ namespace AdventOfCode2019.Console
             System.Console.WriteLine(shortestRoute);
         }
 
-        public static void Part2PuzzleInput()
+        public static void Part2()
         {
             var puzzleInput = File.ReadAllText("./Data/day6.csv");
 

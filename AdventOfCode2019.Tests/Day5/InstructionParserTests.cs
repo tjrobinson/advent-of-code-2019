@@ -1,4 +1,4 @@
-using AdventOfCode2019.Day5;
+using AdventOfCode2019.IntCode;
 using FluentAssertions;
 using Xunit;
 

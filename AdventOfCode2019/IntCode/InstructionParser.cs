@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace AdventOfCode2019.Day5
+namespace AdventOfCode2019.IntCode
 {
     public static class InstructionParser
     {
