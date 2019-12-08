@@ -48,8 +48,9 @@
             // Day7.Part2();
 
             System.Console.WriteLine("# Day 8 Part 1");
-            Day8.Part1Test();
-            Day8.Part1PuzzleInput();
+            //Day8.Part1Test();
+            //Day8.Part1PuzzleInput();
+            Day8.Part2Test();
         }
     }
 }
