@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -63,7 +64,37 @@ namespace AdventOfCode2019.Day8
 
         public Layer MergeLayers()
         {
-            return this.Layers[0];
+            // Start with the last/back layer and then apply other layers on top of it
+            var mergedLayer = new Layer(this.Width, this.Height, this.Layers.Last().Pixels, "Merged");
+
+            for (int y = 0; y < this.Height; y++)
+            {
+                for (int x = 0; x < this.Width; x++)
+                {
+                    // this.Layers.Length - 2 excludes the last/back layer
+                    for (int layerIndex = this.Layers.Length - 2; layerIndex >= 0; layerIndex--)
+                    {
+                        // 0 is black, 1 is white, and 2 is transparent
+                        var pixelToEvaluate = this.Layers[layerIndex].Pixels.Single(p => p.x == x && p.y == y).v;
+
+                        if (pixelToEvaluate == 0)
+                        {
+                            var mergedLayerPixel = mergedLayer.Pixels.Single(p => p.x == x && p.y == y);
+                            mergedLayer.Pixels.Remove(mergedLayerPixel);
+                            mergedLayer.Pixels.Add((x,y,0));
+                        }
+                        if (pixelToEvaluate == 1)
+                        {
+                            var mergedLayerPixel = mergedLayer.Pixels.Single(p => p.x == x && p.y == y);
+
+                            mergedLayer.Pixels.Remove(mergedLayerPixel);
+                            mergedLayer.Pixels.Add((x,y,1));
+                        }
+                    }
+                }
+            }
+
+            return mergedLayer;
         }
     }
 }

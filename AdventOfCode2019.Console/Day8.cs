@@ -41,9 +41,22 @@ namespace AdventOfCode2019.Console
 
         public static void Part2Test()
         {
-            var puzzleInput = "123456789012";
+            var puzzleInput = "0222112222120000";
 
-            var image = new AdventOfCode2019.Day8.Image(3, 2, puzzleInput);
+            var image = new AdventOfCode2019.Day8.Image(2, 2, puzzleInput);
+
+            System.Console.WriteLine(image.ToString());
+
+            var mergedImage = image.MergeLayers();
+
+            System.Console.WriteLine(mergedImage.ToString());
+        }
+
+        public static void Part2PuzzleInput()
+        {
+            var puzzleInput = File.ReadAllText("./Data/day8.csv");
+
+            var image = new AdventOfCode2019.Day8.Image(25, 6, puzzleInput);
 
             System.Console.WriteLine(image.ToString());
 

@@ -28,10 +28,18 @@ namespace AdventOfCode2019.Day8
             {
                 for (int x = 0; x < this.Width; x++)
                 {
-                    this.Pixels.Add((y,x,pixelData[pixelDataIndex]));
+                    this.Pixels.Add((x,y,pixelData[pixelDataIndex]));
                     pixelDataIndex++;
                 }
             }
+        }
+
+        public Layer(int width, int height, List<(int x, int y, int v)> pixels, string name)
+        {
+            this.Width = width;
+            this.Height = height;
+            this.Name = name;
+            this.Pixels = pixels;
         }
 
         public override string ToString()
@@ -44,7 +52,21 @@ namespace AdventOfCode2019.Day8
             {
                 for (int x = 0; x < this.Width; x++)
                 {
-                    output.Append(this.Pixels.Single(p => p.x == y && p.y == x).v);
+                    var value = this.Pixels.Single(p => p.x == x && p.y == y).v;
+
+                    // 0 is black, 1 is white, and 2 is transparent
+                    if (value == 0)
+                    {
+                        output.Append("█");
+                    }
+                    else if (value == 1)
+                    {
+                        output.Append("░");
+                    }
+                    else if (value == 2)
+                    {
+                        output.Append(" ");
+                    }
                 }
 
                 output.AppendLine();
